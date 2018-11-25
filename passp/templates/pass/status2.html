@@ -56,6 +56,18 @@
                                     
                                     <div class="list-group-item">
                                         <h4 class="list-group-item-heading">
+                                            Ministry Verification
+                                        </h4>
+                                        <p class="list-group-item-text">
+                                            {% if documents initiallly verifed %}
+                                                <span class="label label-success">Completed</span>
+                                            {% else %}
+                                                <span class="label label-danger">Not Completed</span>  
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <h4 class="list-group-item-heading">
                                             Date of Verification: 
                                             <div class="form-group">
                                                 <!-- here, initially the user will choose a date, from the next time her login instead of the combo bix he will onlu be shown a date-->
@@ -77,19 +89,6 @@
                                                 <span class="label label-success">Date Chosen</span>
                                             {% else %}
                                                 <span class="label label-danger">Not Chosen</span>  
-                                            {% endif %}
-                                        </p>
-                                    </div>
-                                    
-                                    <div class="list-group-item">
-                                        <h4 class="list-group-item-heading">
-                                            Ministry Verification
-                                        </h4>
-                                        <p class="list-group-item-text">
-                                            {% if documents initiallly verifed %}
-                                                <span class="label label-success">Completed</span>
-                                            {% else %}
-                                                <span class="label label-danger">Not Completed</span>  
                                             {% endif %}
                                         </p>
                                     </div>
