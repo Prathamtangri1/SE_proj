@@ -58,12 +58,12 @@ def form(request):
         passport_number = id_generator()
         pass_ = Passport(passport_number=passport_number, name=name, father_name=father_name, dob=dob, current_add=current_add, permanent_add=permanent_add, gender=gender, phone=phone, email=email)
         if pass_ == None :
-            return render('pass/register_main.html', {'error' : "Authentication Error, Please Try Again."})
+            return render('pass/fill_form.html', {'error' : "Authentication Error, Please Try Again."})
         pass_.save()
         request.user.is_active = True
         #request.user.save()
         return redirect('wait')
-    return render(request, 'pass/register_main.html', None)
+    return render(request, 'pass/fill_form.html', None)
 
 @csrf_exempt
 def register(request):
@@ -85,9 +85,25 @@ def register(request):
             profile = Applicant()
             profile.user = user
             profile.status = 'no'
+            profile.ministry = 'N'
+            profile.police = 'N'
+            profile.dispatch = 'N'
+            profile.date = 'N'
             profile.save()
             user = authenticate(username=username, password=passwd)
             login(request, user)
         
         return redirect('index')
     return render(request, 'pass/register.html', None)
+
+@csrf_exempt
+def wait(request):
+    if(not request.user.is_active):
+        return redirect('index')
+
+    profile = Applicant.objects.get(user=request.user)
+    if(request.method == "POST"):
+        profile.date = str(request.POST['date'])
+        profile.save()
+        return render(request, 'pass/status2.html', {'status' : profile.status, 'date' : profile.date, 'ministry' : profile.ministry, 'police' : profile.police, 'dispatch' : profile.dispatch})
+    return render(request, 'pass/status2.html', {'status' : profile.status, 'date' : profile.date, 'ministry' : profile.ministry, 'police' : profile.police, 'dispatch' : profile.dispatch})

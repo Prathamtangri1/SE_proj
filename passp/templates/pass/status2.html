@@ -35,7 +35,7 @@
                     <br>
                     <h2>Status Page</h2>
                     <div class="col-md-12 column">
-                        {% if all steps completed %}
+                        {% if status == 'Y' %}
                             <div class="panel panel-success">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
@@ -61,7 +61,7 @@
                                             Ministry Verification
                                         </h4>
                                         <p class="list-group-item-text">
-                                            {% if documents initiallly verifed %}
+                                            {% if ministry == 'Y' %}
                                                 <span class="label label-success">Completed</span>
                                             {% else %}
                                                 <span class="label label-danger">Not Completed</span>  
@@ -73,24 +73,21 @@
                                             Date of Verification: 
                                             <div class="form-group">
                                                 <!-- here, initially the user will choose a date, from the next time her login instead of the combo bix he will onlu be shown a date-->
-                                                <form method="POST" class="status-date-form" id="status-date-form"></form>
-                                                    <select>
-                                                        {% for date in freedates %}
-                                                            <option value="{{date}}">{{date}}</option>    
-                                                        {% endfor %}
-                                                        <option value="volvo">15</option>
-                                                        <option value="saab">16</option>
-                                                        <option value="mercedes">17</option>
-                                                        <option value="audi">18</option>
-                                                    </select>
+                                                <form method="POST" class="status-date-form" id="status-date-form">
+                                                    {% if date == 'N' %}
+                                                        <input type="date" name="date">
+                                                        <input type="submit" class='btn btn-success btn-block'>
+                                                    {% else %}
+                                                        <input type="date" name="date" value = "{{date}}">
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </h4>
                                         <p class="list-group-item-text">
-                                            {% if user has input date %}
-                                                <span class="label label-success">Date Chosen</span>
+                                            {% if date == 'N' %}
+                                              <span class="label label-danger">Not Chosen</span>
                                             {% else %}
-                                                <span class="label label-danger">Not Chosen</span>  
+                                              <span class="label label-success">Date Chosen</span>
                                             {% endif %}
                                         </p>
                                     </div>
@@ -100,7 +97,7 @@
                                             Police Verification 
                                         </h4>
                                         <p class="list-group-item-text">
-                                            {% if police verification done %}
+                                            {% if police == 'Y' %}
                                                 <span class="label label-success">Completed</span>
                                             {% else %}
                                                 <span class="label label-danger">Not Completed</span>  
@@ -113,7 +110,7 @@
                                             Passport Dispatch 
                                         </h4>
                                         <p class="list-group-item-text">
-                                            {% if sometime randomly after police verificatoin (lets say 20 sec) %}
+                                            {% if dispatch == 'Y' %}
                                                 <span class="label label-success">Passport Dispatched</span>
                                             {% else %}
                                                 <span class="label label-danger">Not Completed</span>  
