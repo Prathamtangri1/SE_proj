@@ -13,12 +13,10 @@ import string
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
-def index(request):
-    return render(request, 'pass/homepage.html')
-
+@csrf_exempt
 def signin(request):
-    if request.user.is_authenticated() and request.user.is_active == True :
-        return redirect('/')
+    if request.user.is_authenticated and request.user.is_active == True :
+        return redirect('form')
     if request.method == 'POST':
         aadhar_no = request.POST['aadhar_no']
         try:
@@ -27,24 +25,26 @@ def signin(request):
             username = user.username
         except:
             print("username invalid")
-            return render(request, 'pass/login.html', {'error' : 'User-Name/Password Invalid'})
+            return render(request, 'pass/index.html', {'error' : 'User-Name/Password Invalid'})
         password = request.POST['password']
         print(username)
         user = authenticate(username = username, password = password)
         if user == None :
-            return render(request, 'pass/login.html', {'error' : 'User-Name/Password Invalid'})
+            return render(request, 'pass/index.html', {'error' : 'User-Name/Password Invalid'})
         elif user.is_active == False :
             login(request, user)
-            return redirect('/pass/fill_form.html')
+            return redirect('form')
         else : 
             login(request, user)
-            return redirect('/')
-    return render(request, 'pass/login.html', None)
+            return redirect('form')
+    return render(request, 'pass/index.html', None)
 
+@csrf_exempt
 def signout(request):
     logout(request)
-    return redirect('/')
+    return redirect('index')
 
+@csrf_exempt
 def form(request):
     if request.method == 'POST':
         name = request.POST['name']
@@ -58,37 +58,36 @@ def form(request):
         passport_number = id_generator()
         pass_ = Passport(passport_number=passport_number, name=name, father_name=father_name, dob=dob, current_add=current_add, permanent_add=permanent_add, gender=gender, phone=phone, email=email)
         if pass_ == None :
-            return render('pass/form.html', {'error' : "Authentication Error, Please Try Again."})
+            return render('pass/fill_form.html', {'error' : "Authentication Error, Please Try Again."})
         pass_.save()
         request.user.is_active = True
         #request.user.save()
-        return redirect('pass/wait.html')
-    return render(request, 'pass/form.html', None)
+        return redirect('wait')
+    return render(request, 'pass/fill_form.html', None)
 
+@csrf_exempt
 def register(request):
     if request.user.is_active == True:
-        return redirect('/')
+        return redirect('form')
     if request.method == 'POST':
         username = request.POST['aadhar']
-        name = request.POST['name']
         passwd = request.POST['password1']
         passwd2 = request.POST['password2']
-        status = request.POST['status']
-        if(password != password2):
+        if(passwd != passwd2):
             return render(request, 'pass/register.html', {'error' : 'Passwords don\'t match'})
         try:
             user = User._default_manager.get(username__iexact = username.lower())
             return render(request, 'pass/register.html', {'error':'User-Name Already Exists'})
         except User.DoesNotExist:
-            user = User.objects.create_user(username = username, first_name = name)
+            user = User.objects.create_user(username = username)
             user.set_password(passwd)
             user.save()
             profile = Applicant()
             profile.user = user
-            profile.regNum = request.POST['status']
+            profile.status = 'no'
             profile.save()
             user = authenticate(username=username, password=passwd)
             login(request, user)
         
-        return redirect('/login.html')
+        return redirect('index')
     return render(request, 'pass/register.html', None)

@@ -28,13 +28,14 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
-				<form class="login100-form validate-form" action="#" <!--Redirect to ./index.html--> </form>target="#" method="post">
+				<form class="login100-form validate-form" action="#" method="post"> 
+				<!--redirect to ./colorlib-regform-15/register_main.html -->
 					<span class="login100-form-title p-b-55">
-						Register On Website
+						Login
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Valid Aadhar Number is required">
-						<input class="input100" type="number" name="Aadhar_card_no" min="100000000000" max="999999999999" placeholder="Aadhar Number">
+						<input class="input100" type="number" name="aadhar_no" placeholder="Aadhar Number">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="fa fa-address-card"></span>
@@ -42,29 +43,10 @@
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="fa fa-lock"></span>
-						</span>
-					</div>
-
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Re-enter password">
-						<input class="input100" type="password" name="pass" placeholder="Re-enter Password">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<span class="fa fa-lock"></span>
-						</span>
-					</div>
-
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Status">
-						<select class="input100" name="status" id="status">
-							<option value=""></option>
-							<option value="us">User</option>
-							<option value="uk">Admin</option>
-						</select>
-						<span class="symbol-input100">
-							<span class="fa fa-user"></span>
 						</span>
 					</div>
 
@@ -76,19 +58,18 @@
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">
-						<button class="login100-form-btn">
-							Register
-						</button>
+						<input class="login100-form-btn" type="submit" value="Login">
 					</div>
-
+					</form> 
+					
 					<div class="text-center w-full p-t-115">
-							<span class="txt1">
-								Already Registered?
-							</span>
-	
-							<a class="txt1 bo1 hov1" href="./index.html">
-								Login					
-							</a>
+						<span class="txt1">
+							Not a member?
+						</span>
+
+						<a class="txt1 bo1 hov1" href="http://127.0.0.1:8000/register">
+							Register now							
+						</a>
 					</div>
 				</form>
 			</div>
