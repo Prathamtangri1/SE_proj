@@ -17,7 +17,12 @@ class Passport(models.Model):
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    status = models.CharField(max_length = 10)
+    status = models.CharField(max_length = 10, null=True)
+    date = models.CharField(max_length=10, null=True)
+    ministry = models.CharField(max_length=1, null=True)
+    police = models.CharField(max_length=1, null=True)
+    dispatch = models.CharField(max_length=1, null=True)
+
 
     def __str__(self):
         return self.user.username

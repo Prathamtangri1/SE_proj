@@ -58,12 +58,12 @@ def form(request):
         passport_number = id_generator()
         pass_ = Passport(passport_number=passport_number, name=name, father_name=father_name, dob=dob, current_add=current_add, permanent_add=permanent_add, gender=gender, phone=phone, email=email)
         if pass_ == None :
-            return render('pass/fill_form.html', {'error' : "Authentication Error, Please Try Again."})
+            return render('pass/register_main.html', {'error' : "Authentication Error, Please Try Again."})
         pass_.save()
         request.user.is_active = True
         #request.user.save()
         return redirect('wait')
-    return render(request, 'pass/fill_form.html', None)
+    return render(request, 'pass/register_main.html', None)
 
 @csrf_exempt
 def register(request):

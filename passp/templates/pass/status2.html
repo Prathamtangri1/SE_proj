@@ -1,4 +1,4 @@
-{% load staticfiles}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +78,7 @@
                                                         <input type="date" name="date">
                                                         <input type="submit" class='btn btn-success btn-block'>
                                                     {% else %}
-                                                        <input type="date" name="date" value = "{{date}}">
+                                                        <input type="text" name="date" value = "{{date}}" disable>
                                                     {% endif %}
                                                 </form>
                                             </div>
